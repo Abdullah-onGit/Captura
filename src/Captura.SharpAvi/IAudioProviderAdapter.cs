@@ -58,8 +58,19 @@ namespace Captura.Models
 
             return SourceCount;
         }
+        //after updating SharpAvi nuget package interface need this methods
+        public int EncodeBlock(ReadOnlySpan<byte> source, Span<byte> destination)
+        {
+            throw new NotImplementedException();
+        }
 
         public int Flush(byte[] Destination, int DestinationOffset) => 0;
+
+        //after updating SharpAvi nuget package interface need this methods
+        public int Flush(Span<byte> destination)
+        {
+            throw new NotImplementedException();
+        }
 
         public int GetMaxEncodedLength(int SourceCount) => SourceCount;
     }

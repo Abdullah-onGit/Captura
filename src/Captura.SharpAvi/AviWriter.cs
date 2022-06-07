@@ -77,14 +77,14 @@ namespace Captura.Models
             {
                 // MotionJpegVideoStream implementation allocates multiple WriteableBitmap for every thread
                 // Use SingleThreadWrapper to reduce allocation
-                var encoderFactory = new Func<IVideoEncoder>(() => new MotionJpegVideoEncoderWpf(Width, Height, _codec.Quality));
+                var encoderFactory = new Func<IVideoEncoder>(() => new MJpegWpfVideoEncoder(Width, Height, _codec.Quality));
                 var encoder = new SingleThreadedVideoEncoderWrapper(encoderFactory);
 
                 _videoStream = _writer.AddEncodingVideoStream(encoder, true, Width, Height);
             }
             else
             {
-                _videoStream = _writer.AddMpeg4VideoStream(Width, Height,
+                _videoStream = _writer.AddMpeg4VcmVideoStream(Width, Height,
                     (double)_writer.FramesPerSecond,
                     // It seems that all tested MPEG-4 VfW codecs ignore the quality affecting parameters passed through VfW API
                     // They only respect the settings from their own configuration dialogs, and Mpeg4VideoEncoder currently has no support for this
